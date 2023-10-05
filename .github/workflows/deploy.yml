@@ -17,6 +17,15 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: whoami
+          script: |
+            export NVM_DIR="$HOME/.nvm" 
+            [ -s '$NVM_DIR/nvm.sh' ] && \. '$NVM_DIR/nvm.sh' 
+            cd ${{ secrets.WORK_DIR }} 
+            git fetch 
+            git checkout ${{ secrets.MAIN_BRANCH }} 
+            git pull 
+            npm install 
+            npm run build 
+            exit
       - name: cleanup
         run: rm -rf ~/.ssh
