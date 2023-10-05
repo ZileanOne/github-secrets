@@ -16,13 +16,13 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
       - name: SSH and deploy
-        uses: appleboy/ssh-action@v0.1.10        
+        uses: garygrossgarten/github-action-ssh@release
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}
           username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
+          privateKey: ${{ secrets.SSH_PRIVATE_KEY }}
+          command: |
             cd ${{ secrets.WORK_DIR }} 
             git fetch 
             git checkout ${{ secrets.MAIN_BRANCH }} 
