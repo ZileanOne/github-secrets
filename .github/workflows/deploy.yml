@@ -3,7 +3,6 @@ on:
     branches:
       - master
   workflow_dispatch:
-
 jobs:
   run_pull:
     name: run pull
@@ -27,5 +26,3 @@ jobs:
             npm install 
             npm run build 
             exit
-      - name: cleanup
-        run: rm -rf ~/.ssh
